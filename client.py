@@ -24,8 +24,6 @@ def init(props):
 
 def executeChallenge():
     print("Python: starting executeChallenge()")
-
-    # The key will be 0000 or name+MAC depending on if the device is near or not
     payload={'reading_id':random.randint(0,100),'ip':'192.168.0.4','data':'1023'}
     key=requests.post("http://localhost:5000/readings",params=payload)
     # Get key as UTF-8 and calculate its length
