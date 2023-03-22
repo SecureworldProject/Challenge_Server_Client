@@ -1,5 +1,6 @@
 import requests
 import random
+import socket   
 
 ### GLOBAL VARIABLES ###
 props_dict = {}
@@ -24,7 +25,12 @@ def init(props):
 
 def executeChallenge():
     print("Python: starting executeChallenge()")
-    payload={'reading_id':random.randint(0,100),'ip':'192.168.0.4','data':'1023'}
+    #Get public IP
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip=s.getsockname()[0]
+    print(ip)
+    payload={'reading_id':random.randint(0,100),'ip':ip,'data':'1023'}
     response=requests.post("http://localhost:5000/readings",params=payload)
     print(response.json())
     # Get key as UTF-8 and calculate its length
